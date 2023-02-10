@@ -112,7 +112,8 @@ export default function CartDetails () {
                         <button onClick={(()=>{
                         checkout({
                             lineItems: [{
-                                price: "price_1MZ0Z9DhAuw7r76Wl0KuxzbN"
+                                price: "price_1MZ0Z9DhAuw7r76Wl0KuxzbN",
+                                quantity: 1
                             }]
                         })
                             })}

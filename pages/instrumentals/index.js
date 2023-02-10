@@ -43,7 +43,7 @@ const handleClick = (id) => {
                     <h2 className="text-6xl font-bold">All Beats</h2>
                     <p className="py-5 text-xl">search</p>
                 {instrumentals && instrumentals.map(instrumental => {
-                    const audioUrl = `http://localhost:3000/${instrumental.audio_files[0].file}`;
+                    const audioUrl = `https://jonnynicebeats.onrender.com/${instrumental.audio_files[0].file}`;
                     return (
                         <div key={instrumental.id}>
                             <Link href={`/instrumentals/${instrumental.id}`}>
