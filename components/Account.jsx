@@ -12,9 +12,9 @@ export default function account({user, handleChange, setClick, form}) {
 
         return (
             <>
-            {user?.email === "Guest" ?
+            {user?.email === "Guest" || user == null ?
             <div className="h-screen">
-                <h1 className="grid grid-cols-2 font-bold text-4xl pb-2 pt-80">
+                <h1 className="grid grid-cols-2 font-bold text-4xl pb-2 pt-40">
                     Account
                 </h1>
                 <div className="py-5 mr-10">
@@ -35,12 +35,12 @@ export default function account({user, handleChange, setClick, form}) {
                         </ul>
                     </div>
                 </div>
-            </div> : <div className="h-screen">
-                <h1 className="grid grid-cols-2 font-bold text-4xl pb-2 pt-80">
+            </div> : <div className="h-screen flex items-center justify-center">
+                <h1 className="font-bold text-4xl pb-2 flex-1 text-center pb-40">
                     Welcome, {user?.email}
                 </h1>
                 <div className='py-5 mr-10'>
                 </div>
-            </div>  }</>
+            </div>}</>
         )
     }

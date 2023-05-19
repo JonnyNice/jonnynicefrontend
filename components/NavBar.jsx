@@ -11,7 +11,6 @@ import SearchIcon from "../public/icons/search--light.svg";
 import SearchDark from "../public/icons/search--dark.svg";
 import UserContext from "../contexts/UserContext"
 
-
 export default function Navbar() {
     const [color, setColor] = useState('transparent');
     const [textColor, setTextColor] = useState('white');
@@ -63,60 +62,74 @@ export default function Navbar() {
     }, [setCart, user]);
 
     useEffect(() => {
-        const changecolor = () => {
-            if (window.scrollY >= 90) {
-                setColor('white');
-                setTextColor('black');
-            } else {
-                setColor('transparent');
-                setTextColor('white');
-            }
-        };
-        if (router.pathname === '/instrumentals/[id]') {
-            setColor('white');
-            setTextColor('black');
+        if (router.pathname === '/') {
+            setColor('transparent');
+            setTextColor('white');
+        } else if (router.pathname === '/instrumentals/[id]') {
+            setColor('transparent');
+            setTextColor('white');
+        } else if (router.pathname === '/instrumentals') {
+            setColor('transparent');
+            setTextColor('white');
+        } else if (router.pathname === '/about') {
+            setColor('transparent');
+            setTextColor('white');
+        } else if (router.pathname === '/contact') {
+            setColor('transparent');
+            setTextColor('white');
         } else if (router.pathname === '/cart') {
             setColor('white');
             setTextColor('black');
         } else if (router.pathname === '/login') {
             setColor('white');
             setTextColor('black');
-        } else {
-            window.addEventListener('scroll', changecolor);
-        }
-        return () => {
-            window.removeEventListener('scroll', changecolor);
         }
     }, [router.pathname])
 
     return (
         <div style= {{ backgroundColor: `${color}` }}className="fixed left-0 top-8 w-full z-10 ease-in duration-300 flex items-center justify-center hover:bg-white h-20 ">
-            <ul style={{ color: `${textColor}` }} className="flex px-6 text-white">
-                <li className="px-5"><Link href="/placements">Placements</Link></li>
-                <li className="px-5"><Link href="/about">About</Link></li>
-                <li className="px-5"><Link href="/contact">Contact</Link></li>
-            </ul>
+            <div></div>
+                <ul style={{ color: `${textColor}` }} className="flex px-5 text-white">
+                    <li className="px-5"><Link href="/placements">Credits</Link></li>
+                    <li className="px-5"><Link href="/about">About</Link></li>
+                    <li className="px-4"><Link href="/contact">Contact</Link></li>
+                </ul>
             <div className="px-[250px]">
-                <Link href="/">
-                    {color == 'transparent' ? <Image src={Logo} alt="Jonny Logo" width={115} height={16} /> : <Image src={LogoDark} alt="Jonny Logo" width={115} height={16} />}
-                </Link>
+                <div className="relative w-20 h-20">
+                    <div style= {{ backgroundColor: `${color}` }} className="absolute top-0 left-0 w-20 h-20 transform rotate-45"></div>
+                    <Link href="/" className="z-30 relative">
+                        {color == 'transparent' ? <Image src={Logo} alt="Jonny Logo" width={115} height={16} /> : <Image src={LogoDark} alt="Jonny Logo" width={115} height={16} />}
+                    </Link>
+                </div>
             </div>
-            <ul style={{ color: `${textColor}` }} className="flex px-14 text-white ">
-            <li className="px-5"><Link href="/instrumentals">Beats</Link></li>
-                <li className="px-5 -mr-3"><Link href="/cart">Cart</Link></li>
-                {quantity > 0 ? <li className="px-2 text-white items-center bg-black rounded-full"><Link href="/cart">{quantity}</Link></li> : null}
-            </ul>
+        {user?.email == "Guest" || user == null ?
+                <ul style={{ color: `${textColor}` }} className="flex px-14 text-white ">
+                    <li className="px-5"><Link href="/instrumentals">Beats</Link></li>
+                        <li className="px-5 -mr-3"><Link href="/cart">Cart</Link></li>
+                    {quantity > 0 ?
+                        <li className="px-2 text-white items-center bg-black rounded-full">
+                            <Link href="/cart">{quantity}</Link>
+                        </li>
+                    : null}
+                </ul>
+                :
+                <ul style={{ color: `${textColor}` }} className="flex px-5 text-white ">
+                    <li className="px-4"><Link href="/instrumentals">Beats</Link></li>
+                        <li className="px-4 -mr-3"><Link href="/cart">Cart</Link></li>
+                    {quantity > 0 ? <li className="px-2 text-white items-center bg-black rounded-full"><Link href="/cart">{quantity}</Link></li> : null}
+                </ul>
+                }
             <div>
                 <Link href="/login" className="px-12 hover">
-                    {color == 'transparent' ? <Image src={User} alt="User Icon" width={20} height={20} /> : <Image src={UserDark} alt="User Icon" width={20} height={20} />}
+                    {color == 'transparent' ? <Image src={User} alt="User Icon" width="auto" height={20} /> : <Image src={UserDark} alt="User Icon" width="auto" height={20} />}
                 </Link>
             </div>
-            <div>
+            {/* <div>
                 <Link href="/" className="px-10">
                     {color == 'transparent' ? <Image src={SearchIcon} alt="Search Icon" width={20} height={20} /> : <Image src={SearchDark} alt="Search Icon" width={30} height={30} />}
                 </Link>
-            </div>
-            {user?.email != "Guest" ? <div>
+            </div> */}
+            {user?.email == "Guest" || user == null ? null : <div>
                 {color == 'transparent' ?
                 <Link href="/" onClick={handleLogOut} className="px-5 text-white">
                     Logout
@@ -125,7 +138,7 @@ export default function Navbar() {
                     Logout
                 </Link>
                 }
-                </div> : null}
+                </div>}
         </div>
     );
 }            {/* <div>

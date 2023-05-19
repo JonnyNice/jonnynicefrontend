@@ -13,6 +13,7 @@ module.exports = {
       backgroundImage: {
         'home': "url('../public/images/image3.jpg')",
         'auth': "url('../public/images/image1.jpg')",
+        'beats': "url('../public/images/image5.jpg')",
       },
     },
   },

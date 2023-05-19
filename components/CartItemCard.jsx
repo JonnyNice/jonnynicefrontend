@@ -9,40 +9,23 @@ export default function CartItemCard({cartItem, handleDeleteData, updateCartItem
     const { instrumental } = cartItem
     console.log(cartItem)
 
-    const handleRemove = (e) =>{
-        e.preventDefault()
-        fetch(`/api/cart_items/${cartItem.id}`,{
-            method: 'PATCH',
-            headers:  {
-                "Content-Type": "application/json",
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-                quantity: quantity - 1
-            }),
-            })
-        .then(res => res.json())
-        .then(data => {
-            updateCartItem({...cartItem, ...data})
-        })
-    }
-
-    const handleSwitch = (id) =>{
-        fetch(`/api/orders/${cartItem.id}`,{
-            method: 'PATCH',
-            headers:  {
-                "Content-Type": "application/json",
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-                lease_id: id
-            }),
-        })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data)
-        })
-    }
+    // const handleSwitch = (id) =>{
+    //     fetch(`/api/orders/${cartItem.id}`,{
+    //         method: 'PATCH',
+    //         headers:  {
+    //             "Content-Type": "application/json",
+    //             'Accept': 'application/json'
+    //         },
+    //         body: JSON.stringify({
+    //             lease_id: id
+    //         }),
+    //     })
+    //     .then(res => res.json())
+    //     .then(data => {
+    //         console.log(data)
+    //         updateCartItem({...cartItem, lease: data})
+    //     })
+    // }
 
     const handleDelete = (e) =>{
         fetch(`/api/orders/${cartItem.id}`,{

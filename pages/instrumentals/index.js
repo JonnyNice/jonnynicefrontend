@@ -5,13 +5,15 @@ import CartContext from '../../contexts/CartContext';
 import UserContext from '../../contexts/UserContext';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-
+import Layout from '../../components/Layout';
 
 export default function Instrumentals () {
     const [instrumentals, setInstrumentals] = useState([]);
     const [cart, setCart] = useContext(CartContext);
     const [user, _setUser] = useContext(UserContext);
     const router = useRouter()
+    const [selectedInstrumental, setSelectedInstrumental] = useState(null);
+
 
     useEffect(() => {
         fetch(`/api/instrumentals`)
@@ -19,50 +21,70 @@ export default function Instrumentals () {
             .then(instrumentals => setInstrumentals(instrumentals))
     }, []);
 
-const handleClick = (id) => {
-    fetch(`/api/carts/${user.cart_id}/orders`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-            lease_id: id,
+    const handleClick = (id) => {
+        fetch(`/api/carts/${user.cart_id}/orders`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                lease_id: id,
+            })
         })
-    })
-        .then(res => res.json())
-        .then(data => {
-            setCart(items => [...items, data])
-        })
-    }
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                setCart(items => [...(items || []), data])
+                setSelectedInstrumental(id);
+                setTimeout(() => {
+                    setSelectedInstrumental(null);
+                }, 2000);
+            })
+        }
 
-    return (
-        <div className="flex items-center justify-center h-screen mb-12 bg-fixed bg-center bg-cover bg-home">
-            <div className="absolute top-0 left-0 right-0 bottom-0 bg-black/50 z-[2]"/>
-                <div className="p-5 text-white z-[2] text-center w-[900px]">
-                    <h2 className="text-6xl font-bold">All Beats</h2>
-                    <p className="py-5 text-xl">search</p>
-                {instrumentals && instrumentals.map(instrumental => {
-                    const audioUrl = `https://jonnynicebeats.onrender.com/${instrumental.audio_files[0].file}`;
-                    return (
-                        <div key={instrumental.id}>
-                            <Link href={`/instrumentals/${instrumental.id}`}>
-                                <p className='font-bold'>{instrumental.title}</p>
-                            </Link>
-                            <h3>Genre: {instrumental.genre.name}</h3>
-                            <AudioPlayer
-                                src={audioUrl}
-                                onPlay={e => console.log("onPlay")}
-                            />
-                            <button onClick={() => {
-                                handleClick(instrumental.audio_files[0].lease?.id)
-                            }}>Add to Cart</button>
-                            {/* ()=>{handleClick(instrumental.audio_files[0].lease?.id)} */}
-                        </div>
-                    )
-                })
-            }
+        return (
+            <Layout className="min-h-screen">
+                <div className="flex flex-col items-center justify-center bg-fixed bg-center bg-cover bg-beats p-5 relative">
+                    <div className="absolute top-0 left-0 right-0 bottom-0 bg-black/50 z-2 w-full h-full fixed"></div>
+                        <div className="p-5 text-white z-[2] text-center w-[900px] flex flex-col" >
+                            <h2 className="text-6xl font-bold pt-40">All Beats</h2>
+                        <p className="text-l">Select a title to see more options</p>
+                    <div className="flex flex-col z-[2] h-4/6 px-5 py-3 border-solid border-2 border-zinc-800 rounded-md p-2">
+                    {instrumentals && instrumentals.map(instrumental => {
+                        const audioUrl = `https://jonnynice.onrender.com${instrumental.audio_files[0].file}`;
+                        return (
+                            <div key={instrumental.id} className="p-4">
+                                <div className="border-2 border-slate-800 rounded-lg p-2">
+                                    <Link href={`/instrumentals/${instrumental.id}`}>
+                                            <p className='underline font-bold text-xl pt-2'>{instrumental.title}</p>
+                                        </Link>
+                                    <div className="flex justify-between items-center">
+                                        <button
+                                            onClick={() => {handleClick(instrumental.audio_files[0].lease?.id)}}
+                                            className="border-2 rounded-md"
+                                        >
+                                            {selectedInstrumental === instrumental.audio_files[0].lease?.id ? `${instrumental.title}\u00A0added to cart` : "Add to Cart" }
+                                        </button>
+                                        <h3>Genre: {instrumental.genre.name}</h3>
+                                    </div>
+                                <AudioPlayer
+                                    src={audioUrl}
+                                    onPlay={e => console.log("onPlay")}
+                                    style={{
+                                    backgroundColor: 'rgba(30, 41, 59, 0.5)',
+                                    borderRadius: '10px',
+                                    padding: '10px',
+                                    textColor: 'white',
+                                    }}
+                                />
+                                </div>
+                            </div>
+                            )
+                        })}
+                    </div>
+                </div>
             </div>
-        </div>
-    )
+        </Layout>
+    );
 }

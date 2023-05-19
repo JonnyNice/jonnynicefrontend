@@ -10,8 +10,8 @@ import Image5 from '../public/images/image5.jpg'
 export default function Carousel() {
     const images = [Image1, Image2, Image3, Image4, Image5]
 
-    const pictureMap = images.map((image) => (
-        <StudioCard key={image.name} image={image} name={image.name} button={createGenderButtons()} />
+    const pictureMap = images.map((image, index) => (
+        <StudioCard key={index} image={image} name={image.name} button={createGenderButtons()} />
         )
     )
     function createGenderButtons() {
