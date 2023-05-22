@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
-import AudioPlayer from 'react-h5-audio-player';
-import 'react-h5-audio-player/lib/styles.css';
 import CartContext from '../../contexts/CartContext';
 import UserContext from '../../contexts/UserContext';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
+import Audio from '../../components/Audio';
 
 export default function Instrumental () {
     const [instrumental, setInstrumental] = useState([]);
@@ -15,6 +14,15 @@ export default function Instrumental () {
     const id = router.query.id
     const [selectedLeaseId, setSelectedLeaseId] = useState(null);
     const [addedToCartIds, setAddedToCartIds] = useState([]);
+    const [isPlaying, setIsPlaying] = useState(false);
+
+    const handleAudioPlay = () => {
+        setIsPlaying(true);
+    };
+
+    const handleAudioPause = () => {
+        setIsPlaying(false);
+    };
 
     useEffect(() => {
         fetch(`/api/instrumentals/${id}`)
@@ -73,17 +81,13 @@ export default function Instrumental () {
                 <p className="py-5 text-xl"></p>
                 <h3>Genre: {instrumental.genre?.name}</h3>
                     <div key={instrumental.id}>
-                        <AudioPlayer
-                            src={audioUrl}
-                            onPlay={e => console.log("onPlay")}
-                            style={{
-                                backgroundColor: 'rgba(30, 41, 59, 0.5)',
-                                borderRadius: '10px',
-                                padding: '10px',
-                                textColor: 'white',
-                            }}
+                        <Audio
+                            audioUrl={audioUrl}
+                            onPlay={() => handleAudioPlay(audioUrl)}
+                            onPause={handleAudioPause}
+                            isPlaying={isPlaying}
                         />
-                </div>
+                    </div>
                 <h2 className="text-xl p-5">Lease Options</h2>
                 <div className="flex flex-wrap justify-center gap-4 border-t-2 py-6">
                     {instrumental?.audio_files?.map((audio_file, j) => (
@@ -93,7 +97,7 @@ export default function Instrumental () {
                             <div className="flex justify-between items-center pt-5" >
                                 <p>Price: $ {audio_file.lease.price}</p>
                                 <button
-                                className=" p-1 border rounded-md"
+                                    className=" p-1 border rounded-md"
                                     onClick={() => handleButtonClicked(audio_file.lease.id)}
                                     disabled={selectedLeaseId === audio_file.lease.id || addedToCartIds.includes(audio_file.lease.id)}
                                 >
@@ -103,7 +107,7 @@ export default function Instrumental () {
                         </div>
                         )
                     ))}
-                    </div>
+                </div>
             </div>
         </div>
     </Layout>

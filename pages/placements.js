@@ -19,10 +19,13 @@ export default function Placements() {
                             <YoutubeEmbed embedId="VxESWIw7WuU" />
                         </div>
                         <div className="space-y-2">
+                            <Spotify wide link="https://open.spotify.com/track/0H5x54ul3jbDpktjFKXUzj" id="marg" />
                             <Spotify wide link="https://open.spotify.com/track/0ZwYpEG8Jef3V0VPeu7q7O" id="hkstee" />
+                            <Spotify wide link="https://open.spotify.com/track/0Pg5ulOOl4tK4wTxTdoNRf" id="blksknn" />
                             <Spotify wide link="https://open.spotify.com/track/2l2kFw2GBg4AVp3dbxvJPG" id="croma619" />
                             <Spotify wide link="https://open.spotify.com/track/11ktXmPnaLGXkENcAkffsG" id="stlouis" />
                             <Spotify wide link="https://open.spotify.com/track/1jSWLIZv4BvZ9I2SSTFLZ5" id="hbavaro" />
+                            <Spotify wide link="https://open.spotify.com/track/7IUsLvIusBMZ4otCeGewxY" id="erd" />
                             <Spotify wide link="https://open.spotify.com/track/2SWfDQhvdsMaplMkbDWVl1" id="marg" />
                             <Spotify wide link="https://open.spotify.com/track/1OZVXYpBha19Voe5yNBUnx" id="marg" />
                             <Spotify wide link="https://open.spotify.com/track/4lru0fJnXpreVVrpFpbqXt" id="marg" />
@@ -31,6 +34,13 @@ export default function Placements() {
                             <Spotify wide link="https://open.spotify.com/track/4rKLjgHC7XUMXZmE1mAZpC" id="bnoir" />
                             <Spotify wide link="https://open.spotify.com/track/3OSQ1Jtf2Q6rQyOsGYaWVk" id="winks" />
                             <Spotify wide link="https://open.spotify.com/track/4ABjTxeh2hz4G3kOZBvPvX" id="winks" />
+                            <Spotify wide link="https://open.spotify.com/track/7nXyMcziyp1VPBWYSaecpO" id="Brodcast" />
+                            <Spotify wide link="https://open.spotify.com/track/1ftBP8EtlxbYcuw9Z4mn0b" id="Brodcast" />
+                            <Spotify wide link="https://open.spotify.com/track/3Lhx7PjyIEkeHroFtRC3SS" id="Brodcast" />
+                            <Spotify wide link="https://open.spotify.com/track/4giYdUE0MtZ3uIAhBVtUf8" id="Brodcast" />
+                            <Spotify wide link="https://open.spotify.com/track/7vv2JhGR7BZsJxKAE9sk7C" id="Brodcast" />
+                            <Spotify wide link="https://open.spotify.com/track/568vSjf5gygGRjGvHHtFlw" id="Brodcast" />
+                            <Spotify wide link="https://open.spotify.com/track/1XJaB7sPCBLuv6NBpYIuqu" id="Brodcast" />
                         <div className="grid grid-cols-3 gap-4 place-content-center">
                             <Spotify link="https://open.spotify.com/album/49MCny8XcNaNsmrbXJJrOK" className="mx-auto" id="brodcast" />
                             <Spotify link="https://open.spotify.com/album/2514mjq37KdZHDcWRyryKt" className="mx-auto" id="brodcast" />

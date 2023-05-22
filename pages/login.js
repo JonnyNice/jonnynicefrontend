@@ -29,9 +29,9 @@ export default function Login() {
 
     return (
         <Layout>
-            <div className="grid grid-cols-3 mt-20">
+            <div className="grid grid-cols-3 mt-32">
                 <div className="col-span-2 bg-cover bg-auth w-full">
-                </div>
+                    </div>
                 <div className="bg-stone-100 h-full">
                     <div className="ml-20">
                     {click == null ?

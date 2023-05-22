@@ -58,11 +58,13 @@ export default function Cart() {
 
     return (
         <Layout>
+            <div className="mt-32">
         {purchaseSuccessful
             ? displayPurchaseSuccessfulMsg
             : cart?.length === 0
             ? displayEmptyCartMsg
             : <CartDetails user={user} setUser={setUser} handlePurchaseSuccessful={handlePurchaseSuccessful} />}
+            </div>
         </Layout>
     );
 }
